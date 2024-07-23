@@ -1,7 +1,8 @@
 #include "UIManager.h"
 #include "UiHardware.h"
 
-
+uint32_t lastEnter = 0;
+uint32_t upTime    = 0;
 //main Window
 AbstractMenu::ItemConfig mainWindowItems[1];
 
@@ -139,30 +140,42 @@ void UIManager::updateMainPage()
     uint32_t    minY       = 0;
     uint32_t    lineOffset = 12;
     uint8_t     lineNumber = 0;
-    std::string str        = "Midi";
+    std::string str        = "NeoDrums";
     char*       cstr       = &str[0];
+    uint32_t    now        = 0;
+    now                    = System::GetNow();
 
-    //Title
-    hw.display.Fill(false);
-    hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
-    hw.display.WriteString(cstr, Font_7x10, true);
+    if(now - lastEnter > 1000)
+    {
+        lastEnter = now;
+        upTime += 1;
+        //Title
+        hw.display.Fill(false);
+        hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
+        hw.display.WriteString(cstr, Font_7x10, true);
 
-    lineNumber++;
-    hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
-    str = "Message type:" + std::to_string(static_cast<uint8_t>(midiType));
-    hw.display.WriteString(cstr, Font_6x8, true);
+        lineNumber++;
+        hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
+        str = "HiHat : 60";
+        hw.display.WriteString(cstr, Font_6x8, true);
 
-    lineNumber++;
-    hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
-    str = "Note :" + std::to_string(static_cast<uint8_t>(midiNote));
-    hw.display.WriteString(cstr, Font_6x8, true);
+        lineNumber++;
+        hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
+        str = "Snare : 62";
+        hw.display.WriteString(cstr, Font_6x8, true);
 
-    lineNumber++;
-    hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
-    str = "Channel :" + std::to_string(static_cast<int>(midiChannel));
-    hw.display.WriteString(cstr, Font_6x8, true);
+        lineNumber++;
+        hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
+        str = "Kick : 64";
+        hw.display.WriteString(cstr, Font_6x8, true);
 
-    hw.display.Update();
+        lineNumber++;
+        hw.display.SetCursor(minX, minY + lineNumber * lineOffset);
+        str = "Time (s) : " + std::to_string(upTime);
+        hw.display.WriteString(cstr, Font_6x8, true);
+
+        hw.display.Update();
+    }
 }
 void UIManager::exitMenu(void* context)
 {

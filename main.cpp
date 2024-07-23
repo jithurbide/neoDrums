@@ -11,24 +11,29 @@ using namespace daisysp;
 DaisyPatch      hw;
 HiHat<>         hihat;
 AnalogSnareDrum snare;
+AnalogBassDrum  Kick;
 eScreen         mainMachine = mainScreen;
 UIManager       UiManager;
-
+float           hat = 0.0f, snareOut = 0.0f, kickOut = 0.0f, mix = 0.0f;
 
 void AudioCallback(AudioHandle::InputBuffer  in,
                    AudioHandle::OutputBuffer out,
                    size_t                    size)
 {
-    float hat = 0.0f, snareOut = 0.0f;
     hw.ProcessAllControls();
     UiManager.GenerateUiEvents();
 
     for(size_t i = 0; i < size; i++)
     {
-        hat       = hihat.Process();
-        snareOut  = snare.Process();
-        out[0][i] = snareOut;
-        out[1][i] = hat;
+        //hat      = hihat.Process();
+        snareOut = snare.Process();
+        kickOut  = Kick.Process();
+        mix      = snareOut + kickOut;
+
+        // out[0][i] = hat;
+        out[1][i] = snareOut;
+        out[2][i] = kickOut;
+        out[3][i] = mix;
     }
 }
 
@@ -63,6 +68,8 @@ int main(void)
 
     hihat.Init(samplerate);
     snare.Init(samplerate);
+    Kick.Init(samplerate);
+    Kick.SetFreq(50.f);
 
     // Start stuff.
     hw.midi.StartReceive();

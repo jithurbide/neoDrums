@@ -17,6 +17,7 @@ extern DaisyPatch      hw;
 extern HiHat<>         hihat;
 extern AnalogSnareDrum snare;
 extern AnalogSnareDrum snare2;
+extern AnalogBassDrum  Kick;
 
 
 void MidiProcess()
@@ -60,7 +61,11 @@ void HandleMidiMessage(MidiEvent m)
                                 //snare.SetFreq(mtof((float)midiNote));
                                 snare.Trig();
                                 break;
-                            case 64: //clap
+                            case 64: //Kick
+                                Kick.SetAccent(midiVelocity / 127);
+                                //Kick.SetFreq(mtof((float)midiNote));
+                                Kick.Trig();
+                                break;
                             default: break;
                         }
                         break;

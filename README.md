@@ -14,7 +14,12 @@ JustInTime
 | --- | --- |  
 | Midi Channel 1 note 60 | HiHat |  
 |Midi Channel 1 note 62| Snare |  
-| Midi Channel 1 note 64| Kick|  
+| Midi Channel 1 note 64| Kick| 
+|---|---|
+| Out 1 | HiHat sound |
+| Out 2 | Snare Sound|
+| Out 3 | Kick  Sound| 
+| Out 4 | Mixed signal |
 
 
 
