@@ -1,20 +1,20 @@
-# Midi
+# NeoDrums
 
 ## Description
-Control a synth voice over Midi.
+Snare, hihat and Kick drum in same module managed by midi
 
-[Source Code](https://github.com/electro-smith/DaisyExamples/tree/master/patch/Midi)
+[Source Code](https://github.com/jithurbide/neoDrums)
 
 ## Author
 
-Shensley
+JustInTime
 
 ## Controls  
 | Control | Description |  
 | --- | --- |  
-| Midi CC 1 | Filter Cutoff |  
-| Midi CC 2 | Filter Resonance |  
-| Audio Outs | Oscillator Output|  
+| Midi Channel 1 note 60 | HiHat |  
+|Midi Channel 1 note 62| Snare |  
+| Midi Channel 1 note 64| Kick|  
 
 
 
