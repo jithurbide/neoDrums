@@ -51,9 +51,9 @@ void HandleMidiMessage(MidiEvent m)
                         switch(midiNote)
                         {
                             case 60:
-                                snare2.SetAccent(midiVelocity / 127);
+                                hihat.SetAccent(midiVelocity / 127);
                                 //hihat.SetFreq(mtof((float)midiNote));
-                                snare2.Trig();
+                                hihat.Trig();
                                 break;
                             case 62: //snare
                                 snare.SetAccent(midiVelocity / 127);

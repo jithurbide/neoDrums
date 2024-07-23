@@ -11,7 +11,6 @@ using namespace daisysp;
 DaisyPatch      hw;
 HiHat<>         hihat;
 AnalogSnareDrum snare;
-AnalogSnareDrum snare2;
 eScreen         mainMachine = mainScreen;
 UIManager       UiManager;
 
@@ -26,7 +25,7 @@ void AudioCallback(AudioHandle::InputBuffer  in,
 
     for(size_t i = 0; i < size; i++)
     {
-        hat       = snare2.Process();
+        hat       = hihat.Process();
         snareOut  = snare.Process();
         out[0][i] = snareOut;
         out[1][i] = hat;
@@ -64,7 +63,6 @@ int main(void)
 
     hihat.Init(samplerate);
     snare.Init(samplerate);
-    snare2.Init(samplerate);
 
     // Start stuff.
     hw.midi.StartReceive();
@@ -78,8 +76,8 @@ int main(void)
         switch(mainMachine)
         {
             case mainScreen:
-                //UiManager.updateMainPage();
-                //UiManager.processQueue();
+                UiManager.updateMainPage();
+                UiManager.processQueue();
                 break;
             case chargeTomenu:
                 mainMachine = menuScreen;
